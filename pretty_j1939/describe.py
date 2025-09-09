@@ -227,7 +227,7 @@ class DADescriber:
         for spn in pgn_object.get("SPNs", []):
             if skip_spns.get(spn, ()) != ():  # skip any SPNs that have already been processed.
                 continue
-            spn_name = self.get_spn_name(spn)
+            spn_name = "(" + str(spn) + ")" + self.get_spn_name(spn)
             spn_units = self.spn_objects.get(spn)["Units"]
 
             def mark_spn_covered(new_spn, new_spn_name, new_spn_description):
