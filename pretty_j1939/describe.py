@@ -251,14 +251,14 @@ class DADescriber:
                         try:
                             enum_descriptions = self.bit_encodings.get(spn)
                             if enum_descriptions is None:
-                                add_spn_description(spn, spn_name, "%d)" % spn_value)
+                                add_spn_description(spn, spn_name, "%d (Unknown)" % spn_value)
                                 continue
                             spn_value_description = enum_descriptions[str(int(spn_value))].strip()
-                            add_spn_description(spn, spn_name, "%d" % spn_value)
+                            add_spn_description(spn, spn_name, "%d (%s)" % (spn_value, spn_value_description))
                         except KeyError:
-                            add_spn_description(spn, spn_name, "%d" % spn_value)
+                            add_spn_description(spn, spn_name, "%d (Unknown)" % spn_value)
                     else:
-                        add_spn_description(spn, spn_name, "%s" % spn_value)
+                        add_spn_description(spn, spn_name, "%s [%s]" % (spn_value, spn_units))
                 else:
                     spn_bytes = self.get_spn_bytes(message_data_bitstring, spn, pgn, is_complete_message)
                     if spn_bytes.length == 0 and not is_complete_message:  # incomplete message
