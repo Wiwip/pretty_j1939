@@ -228,7 +228,7 @@ class DADescriber:
             if skip_spns.get(spn, ()) != ():  # skip any SPNs that have already been processed.
                 continue
             spn_name = "(" + str(spn) + ")" + self.get_spn_name(spn) + "[" + self.spn_objects.get(spn)["Units"] + "]"
-            spn_units = "" # self.spn_objects.get(spn)["Units"]
+            spn_units = self.spn_objects.get(spn)["Units"]
 
             def mark_spn_covered(new_spn, new_spn_name, new_spn_description):
                 skip_spns[new_spn] = (new_spn_name, new_spn_description)  # TODO: move this closer to real-time handling
