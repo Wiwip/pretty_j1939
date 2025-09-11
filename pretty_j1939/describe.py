@@ -227,8 +227,8 @@ class DADescriber:
         for spn in pgn_object.get("SPNs", []):
             if skip_spns.get(spn, ()) != ():  # skip any SPNs that have already been processed.
                 continue
-            spn_name = "(" + str(spn) + ")" + self.get_spn_name(spn)
-            spn_units = self.spn_objects.get(spn)["Units"]
+            spn_name = "(" + str(spn) + ")" + self.get_spn_name(spn) + "[" + self.spn_objects.get(spn)["Units"] + "]"
+            spn_units = "" # self.spn_objects.get(spn)["Units"]
 
             def mark_spn_covered(new_spn, new_spn_name, new_spn_description):
                 skip_spns[new_spn] = (new_spn_name, new_spn_description)  # TODO: move this closer to real-time handling
@@ -251,14 +251,14 @@ class DADescriber:
                         try:
                             enum_descriptions = self.bit_encodings.get(spn)
                             if enum_descriptions is None:
-                                add_spn_description(spn, spn_name, "%d (Unknown)" % spn_value)
+                                add_spn_description(spn, spn_name, "%d)" % spn_value)
                                 continue
                             spn_value_description = enum_descriptions[str(int(spn_value))].strip()
-                            add_spn_description(spn, spn_name, "%d (%s)" % (spn_value, spn_value_description))
+                            add_spn_description(spn, spn_name, "%d" % spn_value)
                         except KeyError:
-                            add_spn_description(spn, spn_name, "%d (Unknown)" % spn_value)
+                            add_spn_description(spn, spn_name, "%d" % spn_value)
                     else:
-                        add_spn_description(spn, spn_name, "%s [%s]" % (spn_value, spn_units))
+                        add_spn_description(spn, spn_name, "%s" % spn_value)
                 else:
                     spn_bytes = self.get_spn_bytes(message_data_bitstring, spn, pgn, is_complete_message)
                     if spn_bytes.length == 0 and not is_complete_message:  # incomplete message
