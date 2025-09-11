@@ -251,7 +251,7 @@ class DADescriber:
                         try:
                             enum_descriptions = self.bit_encodings.get(spn)
                             if enum_descriptions is None:
-                                add_spn_description(spn, spn_name, "%d)" % spn_value)
+                                add_spn_description(spn, spn_name, "%d" % spn_value)
                                 continue
                             spn_value_description = enum_descriptions[str(int(spn_value))].strip()
                             add_spn_description(spn, spn_name, "%d" % spn_value)
@@ -265,7 +265,7 @@ class DADescriber:
                         continue
                     else:
                         if spn_units.lower() in ("request dependent",):
-                            add_spn_description(spn, spn_name, "%s (%s)" % (spn_bytes, spn_units))
+                            add_spn_description(spn, spn_name, "%s" % spn_bytes)
                         elif spn_units.lower() in ("ascii",):
                             add_spn_description(spn, spn_name, "%s" % spn_bytes.bytes.decode(encoding="utf-8"))
                         else:
